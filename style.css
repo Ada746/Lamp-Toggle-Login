@@ -1,0 +1,270 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, Arial; }
+
+:root{
+  /* Lamp light color (change this to pink/yellow/blue etc) */
+  --lamp: 255, 226, 160;        /* warm */
+  --dark1: #0c0f1a;
+  --dark2: #060713;
+}
+
+.room{
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 10%, #1b1f33, var(--dark1) 55%, var(--dark2));
+  transition: background 400ms ease;
+}
+
+/* subtle room texture dots */
+.room::before{
+  content:"";
+  position:absolute; inset:-20%;
+  background:
+    radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 2px);
+  background-size: 42px 42px;
+  opacity: .45;
+  filter: blur(.2px);
+  pointer-events: none;
+}
+
+/* ceiling + floor */
+.ceiling{
+  position:absolute; top:0; left:0; right:0;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.06), transparent);
+}
+.floor{
+  position:absolute; bottom:0; left:0; right:0;
+  height: 120px;
+  background: linear-gradient(to top, rgba(0,0,0,.35), transparent);
+}
+
+/* Lamp positioning */
+.lamp-wrap{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 96vw);
+  height: 420px;
+  pointer-events: none;
+}
+
+.lamp{
+  position:absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 240px;
+  pointer-events: none;
+}
+
+/* Pull cord */
+.cord-area{
+  position:absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(90px);
+  height: 280px;
+  width: 120px;
+  pointer-events: auto; /* allow clicking */
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+}
+
+.cord{
+  all: unset;
+  cursor: pointer;
+  padding-top: 18px;
+  width: 60px;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  gap: 10px;
+}
+
+.cord-line{
+  width: 4px;
+  height: 180px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.55);
+  box-shadow: 0 10px 20px rgba(0,0,0,.25);
+}
+
+.cord-knob{
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.85);
+  box-shadow: 0 10px 22px rgba(0,0,0,.25);
+}
+
+/* Pull animation */
+.room.pull .cord{
+  animation: pull 260ms ease-in-out;
+}
+@keyframes pull{
+  0%{ transform: translateY(0); }
+  50%{ transform: translateY(14px); }
+  100%{ transform: translateY(0); }
+}
+
+/* Lamp parts */
+.shade{
+  position:absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 190px;
+  height: 120px;
+  border-radius: 26px 26px 60px 60px;
+  background: linear-gradient(#f3f5ff, #b7bdd8);
+  box-shadow: 0 18px 40px rgba(0,0,0,.25);
+}
+
+.bulb{
+  position:absolute;
+  top: 82px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);
+  box-shadow: 0 10px 25px rgba(0,0,0,.25);
+  transition: 260ms ease;
+}
+
+.glow{
+  position:absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 0%,
+    rgba(var(--lamp), .45),
+    rgba(var(--lamp), .18) 40%,
+    rgba(var(--lamp), 0) 70%);
+  opacity: 0;
+  filter: blur(1px);
+  transition: opacity 380ms ease;
+}
+
+/* LOGIN CARD */
+.login{
+  width: min(420px, 92vw);
+  padding: 22px 18px 18px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 22px 60px rgba(0,0,0,.35);
+  backdrop-filter: blur(10px);
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(16px) scale(.985);
+  pointer-events: none;
+  transition: 420ms cubic-bezier(.2,1,.2,1);
+}
+
+.login h1{
+  margin: 0 0 6px;
+  font-size: 26px;
+  color: rgba(255,255,255,.92);
+  letter-spacing: .2px;
+}
+
+.hint{
+  margin: 0 0 16px;
+  color: rgba(255,255,255,.75);
+}
+
+/* Glow effect matching lamp */
+.login{
+  /* off: minimal */
+  box-shadow: 0 22px 60px rgba(0,0,0,.35);
+}
+
+/* Form styling */
+.form{
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+label span{
+  display:block;
+  font-size: 12px;
+  color: rgba(255,255,255,.75);
+  margin: 0 0 6px;
+}
+input{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.25);
+  color: rgba(255,255,255,.92);
+  outline: none;
+}
+input:focus{
+  border-color: rgba(var(--lamp), .7);
+  box-shadow: 0 0 0 4px rgba(var(--lamp), .18);
+}
+
+.btn{
+  margin-top: 6px;
+  border: 0;
+  padding: 12px 12px;
+  border-radius: 999px;
+  background: rgba(var(--lamp), .92);
+  color: #1a1408;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 120ms ease;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+
+.tiny{
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,.6);
+}
+
+/* ON state: lamp + login appear with matching glow */
+.room.on{
+  background: radial-gradient(circle at 50% 10%,
+    rgba(var(--lamp), .18),
+    #15192b 42%,
+    #070813 90%);
+}
+
+.room.on .bulb{
+  background: rgba(255,255,255,.9);
+  box-shadow:
+    0 0 20px rgba(var(--lamp), .45),
+    0 0 60px rgba(var(--lamp), .22),
+    0 16px 26px rgba(0,0,0,.22);
+}
+
+.room.on .glow{ opacity: 1; }
+
+.room.on .login{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+
+  /* This is the matching “lamp glow” */
+  box-shadow:
+    0 22px 60px rgba(0,0,0,.35),
+    0 0 0 1px rgba(var(--lamp), .18),
+    0 0 55px rgba(var(--lamp), .22),
+    0 0 120px rgba(var(--lamp), .12);
+}

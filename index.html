@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lamp Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="room" id="room">
+    <!-- Ceiling + Lamp -->
+    <div class="ceiling"></div>
+
+    <div class="lamp-wrap">
+      <div class="cord-area">
+        <button class="cord" id="cord" aria-label="Pull the lamp string">
+          <span class="cord-line"></span>
+          <span class="cord-knob"></span>
+        </button>
+      </div>
+
+      <div class="lamp">
+        <div class="shade"></div>
+        <div class="bulb"></div>
+        <div class="glow"></div>
+      </div>
+    </div>
+
+    <!-- Login card -->
+    <main class="login" id="login" aria-hidden="true">
+      <h1>Welcome back</h1>
+      <p class="hint">The lamp’s on… now you can log in ✨</p>
+
+      <form class="form" autocomplete="on">
+        <label>
+          <span>Username</span>
+          <input type="text" placeholder="yourname" required />
+        </label>
+
+        <label>
+          <span>Password</span>
+          <input type="password" placeholder="••••••••" required />
+        </label>
+
+        <button class="btn" type="submit">Log in</button>
+      </form>
+
+      <div class="tiny">
+        Tip: click the string again to toggle the light.
+      </div>
+    </main>
+
+    <div class="floor"></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
