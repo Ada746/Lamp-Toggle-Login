@@ -15,3 +15,7 @@ Pulling the lamp cord turns the light on and reveals the login form with a glowi
 - HTML
 - CSS
 - JavaScript
+
+## Preview
+
+![Project Preview](lamp-toggle.gif)
